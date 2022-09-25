@@ -1,22 +1,27 @@
 import { useState } from "react"
 import '../assets/styles/index.css';
 
-function Todo() {
+function Todolist() {
   const [inputTodo, setInputTodo] = useState('')
-  const [todos, setTodos] = useState([])
-  const [active, setActive] = useState(false)
+  const [todos, setTodos] = useState([{
+    todo: "ヨンウン",
+    active: false
+  }])
 
   const onChangeInputTodo = (e) => setInputTodo(e.target.value)
 
   const postBtn = () => {
     if(!inputTodo) return;
-    const newTodos = [...todos, inputTodo]
+    const todoText = {todo: inputTodo, active: false}
+    const newTodos = [...todos, todoText]
     setTodos(newTodos)
     setInputTodo('')
   }
 
-  const completeBtn = () => {
-    setActive(!active)
+  const completeBtn = (index) => {
+    const newTodos = [...todos]
+    newTodos[index].active = true
+    setTodos(newTodos)
   }
 
   const deleteBtn = (index) => {
@@ -34,11 +39,11 @@ function Todo() {
       </label>
       <p>Todoリスト</p>
       <ul>
-        {todos.map((todo, index) => {
+        {todos.map((moji, index) => {
           return (
             <li key={index}>
-              <span className={active ? "todo" : ""}>{todo}</span>
-              <button onClick={completeBtn}>完了</button>
+              <span className={moji.active ? "todo" : ""}>{moji.todo}</span>
+              <button onClick={() => completeBtn(index)}>完了</button>
               <button onClick={() => deleteBtn(index)}>削除</button>
             </li>
           )
@@ -48,4 +53,4 @@ function Todo() {
   );
 }
 
-export default Todo;
+export default Todolist;
