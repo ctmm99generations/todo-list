@@ -20,7 +20,11 @@ function Todolist() {
 
   const completeBtn = (index) => {
     const newTodos = [...todos]
-    newTodos[index].active = true
+    if (newTodos[index].active === false) {
+      newTodos[index].active = true
+    } else {
+      newTodos[index].active = false
+    }
     setTodos(newTodos)
   }
 
