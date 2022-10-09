@@ -4,7 +4,7 @@ import '../assets/styles/index.css';
 function Todolist() {
   const [inputTodo, setInputTodo] = useState('')
   const [todos, setTodos] = useState([{
-    todo: "ヨンウン",
+    todo: "",
     active: false
   }])
 
