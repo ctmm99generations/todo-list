@@ -1,7 +1,9 @@
-function Button() {
+function Button(props) {
+  const { name, clickFunc } = props
+
   return (
     <>
-      <button>完了</button>
+      <button onClick={clickFunc}>{name}</button>
     </>
   );
 }
