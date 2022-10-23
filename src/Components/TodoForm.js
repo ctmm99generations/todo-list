@@ -1,6 +1,7 @@
 import React,{useState,useRef} from 'react' // useRefで、inputで入力した値を簡単に取得できる
 import TodoList from './TodoList';
 import { v4 as uuidv4 } from 'uuid'; // uuid ==>> ランダムな文字列がidとして割り当てられる
+import Btn from './Btn';
 
 const TodoForm = () => {  
   const [todos,setTodos] = useState([]) // 初期値をオブジェクトとして管理
@@ -35,9 +36,8 @@ const TodoForm = () => {
 
   return(
     <>
-      {/* <input type={'text'} value={text} onChange={(event) => setText(event.target.value)} /> */}
       <input type='text' ref={todoNameRef} /> {/* inputタグに入力した値をrefで取得 */}
-      <button onClick={handleAddTodo}>追加</button>
+      <Btn name={"追加"} clickFunc={handleAddTodo} />
       {/* TodoFormは親コンポーネント */}
       <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} /> {/* toggleTodo関数を渡す */}
       <div>残りのタスク: { todos.filter( (todo) => !todo.completed ).length }</div> {/* filter関数でfalseのみを絞り込み */}
