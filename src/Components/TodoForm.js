@@ -2,6 +2,7 @@ import React,{useState,useRef} from 'react' // useRefで、inputで入力した�
 import TodoList from './TodoList';
 import { v4 as uuidv4 } from 'uuid'; // uuid ==>> ランダムな文字列がidとして割り当てられる
 import Btn from './Btn';
+import Form from './Form';
 
 const TodoForm = () => {  
   const [todos,setTodos] = useState([]) // 初期値をオブジェクトとして管理
@@ -10,7 +11,7 @@ const TodoForm = () => {
 
   const handleAddTodo = () =>{ // タスクを追加する
     const name = todoNameRef.current.value;
-    if (name == "") return;
+    if (name === "") return;
     setTodos((prevTodos) =>{ // useStateのtodosの状態を変更
       return [...prevTodos, {id: uuidv4(), name:name, completed:false}]; // 追加する前のtodo=prevTodosリストに、第２引数のオブジェクトを追加するというスプレッド構文
     });
@@ -36,7 +37,7 @@ const TodoForm = () => {
 
   return(
     <>
-      <input type='text' ref={todoNameRef} /> {/* inputタグに入力した値をrefで取得 */}
+      <Form type='text' ref={todoNameRef}/>
       <Btn name={"追加"} clickFunc={handleAddTodo} />
       {/* TodoFormは親コンポーネント */}
       <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} /> {/* toggleTodo関数を渡す */}
