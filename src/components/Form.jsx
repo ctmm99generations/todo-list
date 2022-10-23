@@ -1,21 +1,15 @@
 import React from "react"
-import { useState } from "react";
-import Button from "./Button";
 
-function Form() {
-  const postBtn = () => {
-    alert('送信')
-  }
+function Form(props) {
+  const {type, placeholder, onChange, value} = props
 
   return (
     <>
       <input
-        type="text"
-        placeholder="Todoを入力"
-      />
-      <Button
-        name="送信"
-        clickFunc={postBtn}
+        type={type}
+        placeholder={placeholder}
+        onChange={onChange}
+        value={value}
       />
     </>
   );
