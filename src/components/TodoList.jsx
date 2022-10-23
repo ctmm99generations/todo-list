@@ -1,14 +1,33 @@
 import { useState } from "react";
 import Button from "./Button";
-import Form from "./Form"
+import Form from "./Form";
+import "../index.css";
 
 
 function TodoList() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState([{
+    todo: "",
+    active: false
+  }])
   const [inputTodo, setInputTodo] = useState('');
+  const changeInputTodo = (e) => setInputTodo(e.target.value)
+
+  const postBtn = () => {
+    if(!inputTodo) return;
+    const todoText = {todo: inputTodo, active: false}
+    const newTodos = [...todos, todoText]
+    setTodos(newTodos)
+    setInputTodo('')
+  }
 
   const completeBtn = (index) => {
-    alert(`${index}番目のがtodoが完了しました`)
+    const newTodos = [...todos]
+    if (newTodos[index].active === false) {
+      newTodos[index].active = true
+    } else {
+      newTodos[index].active = false
+    }
+    setTodos(newTodos)
   }
 
   const deleteBtn = (index) => {
@@ -17,19 +36,10 @@ function TodoList() {
     setTodos(newTodos)
   }
 
-  const changeInputTodo = (e) => setInputTodo(e.target.value)
-
-  const postBtn = () => {
-    if(!inputTodo) return;
-    const newTodos = [...todos, inputTodo]
-    setTodos(newTodos)
-    setInputTodo('')
-  }
-
-  const todolists = todos.map((todo, index) => {
+  const todolists = todos.map((moji, index) => {
     return (
       <li key={index}>
-        {todo}
+        <span className={moji.active ? "todo" : ""}>{moji.todo}</span>
         <Button
           name='完了'
           clickFunc={() => completeBtn(index)}
