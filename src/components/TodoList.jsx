@@ -1,14 +1,13 @@
 import { useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase.js";
 import Button from "./Button";
 import Form from "./Form";
 import "../index.css";
 
 
 function TodoList() {
-  const [todos, setTodos] = useState([{
-    todo: "",
-    active: false
-  }])
+  const [todos, setTodos] = useState([])
   const [inputTodo, setInputTodo] = useState('');
   const changeInputTodo = (e) => setInputTodo(e.target.value)
 
@@ -16,6 +15,10 @@ function TodoList() {
     if(!inputTodo) return;
     const todoText = {todo: inputTodo, active: false}
     const newTodos = [...todos, todoText]
+    addDoc(collection(db, "todos"), {
+      todo: inputTodo,
+      active: false,
+    })
     setTodos(newTodos)
     setInputTodo('')
   }
@@ -51,7 +54,7 @@ function TodoList() {
       </li>
     )
   })
-
+ 
   return (
     <>
       <Form
