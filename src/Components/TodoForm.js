@@ -1,19 +1,19 @@
-import React,{useState,useRef} from 'react' // useRefで、inputで入力した値を簡単に取得できる
-import TodoList from './TodoList';
+import React, { useState, useRef } from 'react' // useRefで、inputで入力した値を簡単に取得できる
+import List from './List';
 import { v4 as uuidv4 } from 'uuid'; // uuid ==>> ランダムな文字列がidとして割り当てられる
 import Btn from './Btn';
 import Form from './Form';
 
-const TodoForm = () => {  
-  const [todos,setTodos] = useState([]) // 初期値をオブジェクトとして管理
+const TodoForm = () => {
+  const [todos, setTodos] = useState([]) // 初期値をオブジェクトとして管理
 
   const todoNameRef = useRef();
 
-  const handleAddTodo = () =>{ // タスクを追加する
+  const handleAddTodo = () => { // タスクを追加する
     const name = todoNameRef.current.value;
     if (name === "") return;
-    setTodos((prevTodos) =>{ // useStateのtodosの状態を変更
-      return [...prevTodos, {id: uuidv4(), name:name, completed:false}]; // 追加する前のtodo=prevTodosリストに、第２引数のオブジェクトを追加するというスプレッド構文
+    setTodos((prevTodos) => { // useStateのtodosの状態を変更
+      return [...prevTodos, { id: uuidv4(), name: name, completed: false }]; // 追加する前のtodo=prevTodosリストに、第２引数のオブジェクトを追加するというスプレッド構文
     });
     todoNameRef.current.value = null; // inputに入力されている文字を空にする
   }
@@ -35,17 +35,25 @@ const TodoForm = () => {
     setTodos(newTodos);
   }
 
-  return(
+  return (
     <>
-      <Form type='text' ref={todoNameRef}/>
-      <Btn name={"追加"} clickFunc={handleAddTodo} />
-      {/* TodoFormは親コンポーネント */}
-      <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} /> {/* toggleTodo関数を渡す */}
-      <div>残りのタスク: { todos.filter( (todo) => !todo.completed ).length }</div> {/* filter関数でfalseのみを絞り込み */}
+      <Form 
+        type='text' 
+        ref={todoNameRef} 
+      />
+      <Btn 
+        name={"追加"} 
+        clickFunc={handleAddTodo} 
+      />
+      <List 
+        contents={todos}
+        toggleContent={toggleTodo} 
+        deleteContent={deleteTodo} 
+      />
+      <div>残りのタスク: {todos.filter((todo) => !todo.completed).length}</div> {/* filter関数でfalseのみを絞り込み */}
     </>
   );
 }
-
 export default TodoForm;
 
 
