@@ -2,9 +2,7 @@ import React from "react";
 import Content from "./Content";
 
 const List = (props) => {
-
   const { contents,toggleContent,deleteContent } = props;
-
   // todoといってもすべて同じtodoだからエラー ==>> keyをつけてユニークに、区別させる
   return contents.map((value) =>
     <Content
