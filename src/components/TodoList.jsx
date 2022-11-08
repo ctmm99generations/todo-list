@@ -11,6 +11,8 @@ function TodoList() {
   const [inputTodo, setInputTodo] = useState('');
   const changeInputTodo = (e) => setInputTodo(e.target.value)
 
+  const btnStyle = "border-black border border-solid ml-8 px-6 py-2"
+
   useEffect(() => {
     const todoCollectionRef = collection(db, 'todos');
     getDocs(todoCollectionRef).then((querySnapshot) => {
@@ -44,20 +46,22 @@ function TodoList() {
 
   const todolists = todos.map((todo) => {
     return (
-      <li key={todo.id}>
-        <div className={todo.active ? "todo" : ""}>{todo.todo}</div>
+      <li key={todo.id} className="flex">
+        <div className={todo.active ? "todo text-center align-middle" : "text-center align-middle"}>{todo.todo}</div>
         <Button
           name='完了'
           clickFunc={() => completeTodo(todo.id)}
+          className={btnStyle}
         />
         <Button
           name='削除'
           clickFunc={() => deleteTodo(todo.id)}
+          className={btnStyle}
         />
       </li>
     )
   })
- 
+
   return (
     <>
       <Form
@@ -65,10 +69,12 @@ function TodoList() {
         placeholder="Todoを入力"
         value={inputTodo}
         onChange={changeInputTodo}
+        className="m-4 w-1/4 px-6 py-2 border-black border border-solid"
       />
       <Button
         name="送信"
         clickFunc={postBtn}
+        className={btnStyle}
       />
       <ul>
         {todolists}
