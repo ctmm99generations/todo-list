@@ -47,12 +47,22 @@ function TodoList() {
   const todolists = todos.map((todo) => {
     return (
       <li key={todo.id} className="flex">
-        <div className={todo.active ? "todo text-center align-middle" : "text-center align-middle"}>{todo.todo}</div>
-        <Button
-          name='完了'
-          clickFunc={() => completeTodo(todo.id)}
-          className={btnStyle}
-        />
+        <div className={todo.active ? "todo" : ""}>{todo.todo}</div>
+        { 
+          todo.active === true ? (
+            <Button
+              name='未完了'
+              clickFunc={() => imcompleteTodo(todo.id)}
+              className="btn"
+            />
+          ) : (
+            <Button
+              name='完了'
+              clickFunc={() => completeTodo(todo.id)}
+              className="btn"
+            />
+          )
+        }
         <Button
           name='削除'
           clickFunc={() => deleteTodo(todo.id)}
