@@ -10,16 +10,18 @@ function TodoList() {
   const [todos, setTodos] = useState([])
   const [inputTodo, setInputTodo] = useState('');
   const changeInputTodo = (e) => setInputTodo(e.target.value)
-
-  const btnStyle = "border-black border border-solid ml-8 px-6 py-2"
-
-  useEffect(() => {
+  
+  const getTodos = () => {
     const todoCollectionRef = collection(db, 'todos');
     getDocs(todoCollectionRef).then((querySnapshot) => {
       setTodos(
         querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
     });
+  }
+
+  useEffect(() => {
+    getTodos()
   }, []);
 
   const postBtn = () => {
@@ -28,35 +30,55 @@ function TodoList() {
       todo: inputTodo,
       active: false,
     })
+    getTodos()
     setInputTodo('')
   }
 
   const completeTodo = async (id) => {
-    const todoDocumentRef = doc(db, 'todos', id);
-    await updateDoc(todoDocumentRef, {
+    const todoDocRef = doc(db, 'todos', id);
+    await updateDoc(todoDocRef, {
       active: true,
     });
+    getTodos()
+  };
+
+  const imcompleteTodo = async (id) => {
+    const todoDocRef = doc(db, 'todos', id);
+    await updateDoc(todoDocRef, {
+      active: false,
+    });
+    getTodos()
   };
 
   const deleteTodo = async (id) => {
-    const todoDocumentRef = doc(db, 'todos', id);
-    console.log(todoDocumentRef);
-    await deleteDoc(todoDocumentRef);
+    const todoDocRef = doc(db, 'todos', id);
+    await deleteDoc(todoDocRef);
+    getTodos()
   };
 
   const todolists = todos.map((todo) => {
     return (
       <li key={todo.id} className="flex">
         <div className={todo.active ? "todo text-center align-middle" : "text-center align-middle"}>{todo.todo}</div>
-        <Button
-          name='完了'
-          clickFunc={() => completeTodo(todo.id)}
-          className={btnStyle}
-        />
+        { 
+          todo.active === true ? (
+            <Button
+              name='未完了'
+              clickFunc={() => imcompleteTodo(todo.id)}
+              className="btn"
+            />
+          ) : (
+            <Button
+              name='完了'
+              clickFunc={() => completeTodo(todo.id)}
+              className="btn"
+            />
+          )
+        }
         <Button
           name='削除'
           clickFunc={() => deleteTodo(todo.id)}
-          className={btnStyle}
+          className="btn"
         />
       </li>
     )
@@ -69,12 +91,12 @@ function TodoList() {
         placeholder="Todoを入力"
         value={inputTodo}
         onChange={changeInputTodo}
-        className="m-4 w-1/4 px-6 py-2 border-black border border-solid"
+        className="form"
       />
       <Button
         name="送信"
         clickFunc={postBtn}
-        className={btnStyle}
+        className="btn"
       />
       <ul>
         {todolists}
