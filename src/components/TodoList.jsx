@@ -59,7 +59,7 @@ function TodoList() {
   const todolists = todos.map((todo) => {
     return (
       <li key={todo.id} className="flex">
-        <div className={todo.active ? "todo text-center align-middle" : "text-center align-middle"}>{todo.todo}</div>
+        <div className={todo.active ? "todo" : ""}>{todo.todo}</div>
         { 
           todo.active === true ? (
             <Button
