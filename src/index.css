@@ -5,3 +5,11 @@
 .todo {
   text-decoration: line-through;
 }
+
+.btn {
+  @apply border-black border border-solid ml-8 px-6 py-2 m-1
+}
+
+.form {
+  @apply m-4 w-1/4 px-6 py-2 border-black border border-solid
+}
