@@ -4,7 +4,7 @@ import TodoForm from './Components/TodoForm';
 const App = () => {
   return(
     <div>
-      <h1>ToDoアプリ</h1>
+      <p className="m-5 text-4xl text-blue-800 font-mono ... ">ToDoアプリ</p>
       <TodoForm />
     </div>
   );

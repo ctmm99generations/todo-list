@@ -1,4 +1,5 @@
 import React from "react";
+import Btn from "./Btn";
 
 const Content = (props) => {
   const {content,toggleContent,deleteContent} = props;
@@ -15,10 +16,19 @@ const Content = (props) => {
   return(
     <div>
       <label>
-        <input type="checkbox" checked={content.completed} readOnly onChange={handleTodoCheckboxClick}/>
+        <input 
+          type="checkbox" 
+          checked={content.completed} readOnly 
+          onChange={handleTodoCheckboxClick} 
+          className="w-4 h-4 mx-3 bg-gray-100 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+        />
       </label>
-      { content.completed ? <del>{content.name}</del> : content.name } {/* completedがtrueなら取り消し線 */}
-      <button type="alert" onClick={handleTodoDeleteClick}>削除</button>
+      { content.completed ? <del>{content.name}</del> : content.name }
+      <Btn 
+        name="削除" 
+        clickFunc={handleTodoDeleteClick} 
+        className="w-14 h-8 mx-2 my-1 text-red-900 bg-transparent border border-red-900 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-200 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:border-red-800 dark:text-red-800 dark:hover:text-white" 
+      />
     </div>
   );
 }
