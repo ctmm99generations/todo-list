@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+// import Todo from "./components/Todo"
 
-function App() {
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="todoapp">
+      
+      <h1>TodoList</h1>
+
+      <form>
+        <input type="text" id="new-todo-input" />
+        <button type="submit" id="addTaskBtn">Add Task</button>
+      </form>
+
+      <button type="button" id="deleteAllBtn">Delete All Task</button>
+
+      <div id="table">
+        <h2>tasks</h2>
+        <ul id="taskList" >
+        </ul>
+      </div>
+
     </div>
   );
 }
