@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 
-export const App = () => {
+const App = () => {
   const [todoText, setTodoText] = useState("");
 
   const inputTask = document.querySelector('#inputTask');
